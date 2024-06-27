@@ -1,3 +1,7 @@
+@extends('layout.layout')
+
+@section('content')
+
 <div class="card my-4">
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
@@ -12,7 +16,7 @@
             <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
                 @csrf
                 @method('delete')
-                <a class="mx-2" href="{{route('ideas.show',$idea)}}">View</a>
+                <a href="{{route('ideas.edit',$idea)}}" class='mx-2 btn btn-success btn-m'>Edit</a>
                 <button type="submit" class="btn btn-danger btn-m">X</button>
             </form>
         </div>
@@ -33,7 +37,9 @@
         </div>
         <div>
             @include('shared.post-comment')
-            {{$idea->comment->comment}}
         </div>
     </div>
 </div>
+
+
+@endsection

@@ -16,14 +16,26 @@
             <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
                 @csrf
                 @method('delete')
+                <a class="mx-2" href="{{route('ideas.show',$idea)}}">Go Back</a>
                 <button type="submit" class="btn btn-danger btn-m">X</button>
             </form>
         </div>
     </div>
     <div class="card-body">
-        <p class="fs-6 fw-light text-muted">
-            {{ $idea->content }}
-        </p>
+        <form action="{{route('ideas.update',$idea)}}" method="POST" class="row">
+            @csrf
+            @method('put')
+
+            <div class="mb-3">
+                <textarea name='content' class="form-control" id="idea" rows="3">{{ $idea->content }}</textarea>
+                @error('content')
+                <span class="d-block text-danger fs-6 mt-2"> {{ $message }} </span>
+                @enderror
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-dark"> Update </button>
+            </div>
+        </form>
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">

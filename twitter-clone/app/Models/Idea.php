@@ -12,4 +12,10 @@ class Idea extends Model
         'likes',
     ];
     use HasFactory;
+
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'idea_id', 'id');
+    }
 }

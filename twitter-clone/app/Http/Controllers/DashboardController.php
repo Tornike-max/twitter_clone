@@ -3,47 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
 
+    public $showComments = false;
+
     public function index()
     {
-        return view('dashboard', [
-            'ideas' => Idea::query()
-                ->orderBy('created_at', 'desc')
-                ->paginate(5),
-        ]);
-    }
+        $ideas = Idea::query()
+            ->orderBy('created_at', 'desc');
 
-    public function show(Idea $idea)
-    {
-        return view('show', [
-            'idea' => $idea
-        ]);
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'content' => ['required', 'max:255', 'min:2'],
-        ]);
-
-        Idea::create($data);
-        return redirect()->route('dashboard')->with('success', 'Idea created successfully');
-    }
-
-    public function destroy($id)
-    {
-
-        $idea = Idea::query()->where('id', $id)->firstOrFail();
-
-        if (isset($idea)) {
-            $idea->delete();
-            return redirect()->route('dashboard')->with('success', 'Idea deleted successfully');
+        if (request()->has('searchValue')) {
+            $ideas->where('content', 'like', '%' . request()->get('searchValue', '') . '%');
         }
 
-        return redirect()->route('dashboard')->with('error', 'Deletion failed');
+
+        $comments = [];
+
+
+        return view('dashboard', [
+            'ideas' => $ideas->paginate(5),
+            'comments' => $comments,
+            'showComments' => $this->showComments
+        ]);
     }
 }

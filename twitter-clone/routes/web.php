@@ -1,9 +1,15 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/show/{idea}', [DashboardController::class, 'show'])->name('ideas.show');
-Route::post('/store', [DashboardController::class, 'store']);
-Route::delete('/ideas/{id}', [DashboardController::class, 'destroy'])->name('ideas.destroy');
+Route::get('/show/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
+Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
+Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.update');
+Route::post('/store', [IdeaController::class, 'store']);
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+
+Route::post('/store/{id}', [CommentController::class, 'store'])->name('ideas.comments.store');

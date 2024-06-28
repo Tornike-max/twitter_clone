@@ -8,6 +8,7 @@
     </div>
 </form>
 <hr>
+@if ($showComments)
 @foreach ($comments as $comment)
 <div class="d-flex align-items-start">
     <img style="width:35px" class="me-2 avatar-sm rounded-circle"
@@ -17,7 +18,7 @@
             <h6 class="">Luigi
             </h6>
             <small class="fs-6 fw-light text-muted"> {{
-                \Carbon\Carbon::parse($idea->created_at)->diffForHumans()}} </small>
+                \Carbon\Carbon::parse($comment->created_at)->diffForHumans()}} </small>
         </div>
         <p class="fs-6 mt-3 fw-light">
             {{ $comment->content }}
@@ -26,3 +27,4 @@
     </div>
 </div>
 @endforeach
+@endif

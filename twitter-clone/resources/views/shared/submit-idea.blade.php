@@ -1,3 +1,4 @@
+@auth
 <h4> Share yours ideas </h4>
 <form action="/store" method="POST" class="row">
     @csrf
@@ -11,3 +12,8 @@
         <button type="submit" class="btn btn-dark"> Share </button>
     </div>
 </form>
+@endauth
+
+@guest
+<h4>Login to Share yours ideas </h4>
+@endguest

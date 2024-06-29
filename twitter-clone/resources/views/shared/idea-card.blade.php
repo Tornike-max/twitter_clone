@@ -3,18 +3,24 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}"
+                    alt="{{ $idea->user->name }}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> Mario
+                    <h5 class="card-title mb-0"><a href="#"> {{ $idea->user->name }}
                         </a></h5>
                 </div>
             </div>
+            @auth
             <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
                 @csrf
                 @method('delete')
                 <a class="mx-2" href="{{route('ideas.show',$idea)}}">View</a>
                 <button type="submit" class="btn btn-danger btn-m">X</button>
             </form>
+            @endauth
+            @guest
+            <a class="mx-2" href="{{route('login')}}">Login To View Ideas</a>
+            @endguest
         </div>
     </div>
     <div class="card-body">
@@ -36,10 +42,11 @@
             @foreach ($idea->comment as $comment)
             <div class="d-flex align-items-start">
                 <img style="width:35px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Luigi" alt="Luigi Avatar">
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}"
+                    alt="{{ $idea->user->name }}">
                 <div class="w-100">
                     <div class="d-flex justify-content-between">
-                        <h6 class="">Luigi
+                        <h6 class="">{{ $idea->user->name }}
                         </h6>
                         <small class="fs-6 fw-light text-muted"> {{
                             \Carbon\Carbon::parse($comment->created_at)->diffForHumans()}} </small>

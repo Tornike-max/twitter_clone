@@ -7,18 +7,23 @@
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
                 <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $user->name }}" alt="{{$user->name}}">
                 <div>
-                    <h5 class="card-title mb-0"><a href="#"> Mario
+                    <h5 class="card-title mb-0"><a href="#"> {{ $user->name }}
                         </a></h5>
                 </div>
             </div>
+            @auth
             <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
                 @csrf
                 @method('delete')
                 <a href="{{route('ideas.edit',$idea)}}" class='mx-2 btn btn-success btn-m'>Edit</a>
                 <button type="submit" class="btn btn-danger btn-m">X</button>
             </form>
+            @endauth
+            @guest
+            <a href="{{route('login')}}" class="mx-2 btn btn-success btn-m">Login to make actions</a>
+            @endguest
         </div>
     </div>
     <div class="card-body">

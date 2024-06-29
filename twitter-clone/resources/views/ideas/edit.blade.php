@@ -22,6 +22,7 @@
         </div>
     </div>
     <div class="card-body">
+        @auth
         <form action="{{route('ideas.update',$idea)}}" method="POST" class="row">
             @csrf
             @method('put')
@@ -36,7 +37,8 @@
                 <button type="submit" class="btn btn-dark"> Update </button>
             </div>
         </form>
-        <div class="d-flex justify-content-between">
+        @endauth
+        <div class="d-flex justify-content-between mt-2">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
                     </span> {{ $idea->likes }} </a>
@@ -47,12 +49,24 @@
             </div>
         </div>
         <div>
-            <div class="mb-3">
-                <textarea class="fs-6 form-control" rows="1"></textarea>
-            </div>
-            <div>
-                <button class="btn btn-primary btn-sm"> Post Comment </button>
-            </div>
+            @auth
+            <form action="/store" method="POST" class="row">
+                @csrf
+                <div class="mb-3">
+                    <textarea name='content' class="form-control" id="idea" rows="3"></textarea>
+                    @error('content')
+                    <span class="d-block text-danger fs-6 mt-2"> {{ $message }} </span>
+                    @enderror
+                </div>
+                <div class="">
+                    <button type="submit" class="btn btn-dark"> Share </button>
+                </div>
+            </form>
+            @endauth
+            <a href={{route('login')}} class="d-block text-success fs-6 mt-2"> Login to post idea </a>
+            @guest
+
+            @endguest
 
             <hr>
             <div class="d-flex align-items-start">

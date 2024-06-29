@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/show/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
-Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
-Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.update');
-Route::post('/store', [IdeaController::class, 'store']);
-Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])
+    ->name('ideas.edit')
+    ->middleware('auth');
+Route::put('/ideas/{idea}', [IdeaController::class, 'update'])
+    ->name('ideas.update')
+    ->middleware('auth');
+Route::post('/store', [IdeaController::class, 'store'])
+    ->middleware('auth');;
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])
+    ->name('ideas.destroy')
+    ->middleware('auth');;
 
 Route::post('/store/{id}', [CommentController::class, 'store'])->name('ideas.comments.store');
 

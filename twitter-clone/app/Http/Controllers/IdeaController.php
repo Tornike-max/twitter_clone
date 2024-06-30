@@ -24,17 +24,14 @@ class IdeaController extends Controller
     public function store(Request $request)
     {
 
-        if (auth()) {
-            $data = $request->validate([
-                'content' => ['required', 'max:255', 'min:2'],
-            ]);
+        $data = $request->validate([
+            'content' => ['required', 'max:255', 'min:2'],
+        ]);
 
-            $data['user_id'] = auth()->id();
+        $data['user_id'] = auth()->id();
 
-            Idea::create($data);
-            return redirect()->route('dashboard')->with('success', 'Idea created successfully');
-        }
-        return redirect()->route('dashboard')->with('error', "Can't creata idea");
+        Idea::create($data);
+        return redirect()->route('dashboard')->with('success', 'Idea created successfully');
     }
 
     public function destroy($id)

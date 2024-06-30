@@ -9,6 +9,9 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.show', auth()->user()) }}">{{ auth()->user()->name }}</a>
+                </li>
                 <form method="POST" action="{{route('logout')}}" class="nav-item">
                     @csrf
                     <button class="nav-link active" aria-current="page">Logout</button>
@@ -21,9 +24,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
                 </li>
                 @endguest
 

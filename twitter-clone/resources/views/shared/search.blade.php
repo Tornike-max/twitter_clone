@@ -3,7 +3,8 @@
         <h5 class="">Search</h5>
     </div>
     <form action="{{route('dashboard')}}" method="GET" class="card-body">
-        <input name="searchValue" placeholder="..." class="form-control w-100" type="text" id="search">
+        <input value="{{ request('searchValue','') }}" name="searchValue" placeholder="..." class="form-control w-100"
+            type="text" id="search">
         <button class="btn btn-dark mt-2">
             Search
         </button>

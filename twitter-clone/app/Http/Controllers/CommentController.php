@@ -8,7 +8,6 @@ class CommentController extends Controller
 {
     public function store($id)
     {
-
         $data = request()->validate([
             'content' => ['required', 'max:150'],
         ]);
@@ -20,10 +19,5 @@ class CommentController extends Controller
         Comment::create($data);
 
         return redirect()->route('dashboard')->with('success', 'Comment created successfully');
-    }
-
-    public function show($id)
-    {
-        dd($id);
     }
 }

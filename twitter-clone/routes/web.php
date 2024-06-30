@@ -6,25 +6,21 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 
+// Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/show/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
-Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])
-    ->name('ideas.edit')
-    ->middleware('auth');
-Route::put('/ideas/{idea}', [IdeaController::class, 'update'])
-    ->name('ideas.update')
-    ->middleware('auth');
-Route::post('/store', [IdeaController::class, 'store'])
-    ->middleware('auth');;
-Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])
-    ->name('ideas.destroy')
-    ->middleware('auth');;
 
-Route::post('/store/{id}', [CommentController::class, 'store'])->name('ideas.comments.store');
+// Ideas
 
+Route::resource('ideas', IdeaController::class)->except(['index', 'create'])->middleware('auth');
+Route::resource('ideas', IdeaController::class)->only(['show']);
+Route::resource('ideas.comments', CommentController::class)->only(['store'])->middleware('auth');
+
+
+
+// Auth
 Route::get('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/register', [AuthController::class, 'store']);
+Route::post('/register', [AuthController::class, 'store'])->name('register.store');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'loginUser']);
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login.user');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -5,26 +5,29 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-
-                <img style="width:150px" class="me-3 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                <img style="width:150px" class="me-3 avatar-sm rounded-circle" src="{{ $user->getImageURL() }}"
+                    alt="{{ $user->name }}">
                 <div>
+                    @if ($user->id === auth()->user()->id)
                     <div class="d-flex align-items-center gap-4">
                         <a href="/">Back</a>
                         <a href="{{ route('users.edit',auth()->user()) }}">Edit User</a>
                     </div>
+                    @else
+                    <a href="/">Back</a>
+                    @endif
+
                     <h3 class="card-title mb-0"><a href="#"> {{ $user->name }}
                         </a></h3>
                     <span class="fs-6 text-muted">{{'@'. $user->name }}</span>
+
                 </div>
             </div>
         </div>
         <div class=" px-2 mt-4">
             <h5 class="fs-5"> About : </h5>
             <p class="fs-6 fw-light">
-                This book is a treatise on the theory of ethics, very popular during the
-                Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
-                from a line in section 1.10.32.
+                {{ $user->bio }}
             </p>
 
             <div class="d-flex justify-content-start">
@@ -50,4 +53,5 @@
 <div class="mt-3">
     @include('shared.idea-card')
 </div>
-@endforeach@endsection
+@endforeach
+@endsection

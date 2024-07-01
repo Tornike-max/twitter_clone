@@ -10,7 +10,7 @@
             <ul class="navbar-nav">
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.show', auth()->user()) }}">{{ auth()->user()->name }}</a>
+                    <a class="nav-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a>
                 </li>
                 <form method="POST" action="{{route('logout')}}" class="nav-item">
                     @csrf

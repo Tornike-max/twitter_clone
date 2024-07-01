@@ -5,15 +5,14 @@
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img style="width:150px" class="me-3 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Mario" alt="Mario Avatar">
+                <img style="width:150px" class="me-3 avatar-sm rounded-circle" src="{{ $user->getImageURL() }}"
+                    alt="Mario Avatar">
                 <div>
                     <form class="d-flex align-items-center gap-2 card-body"
                         action="{{ route('users.update', auth()->user()) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <input name="name" value="{{ $user->name }}" class="form-control w-100 px-10" type="text"
-                            id="name">
+                        <input name="name" value="{{ $user->name }}" class="form-control w-100 " type="text" id="name">
                         <button type="submit" class="btn btn-dark mt-2">
                             Update
                         </button>
@@ -25,6 +24,20 @@
                 </div>
             </div>
         </div>
+        <form action="{{ route('users.update', auth()->user()) }}" enctype="multipart/form-data" class="mt-4"
+            method="POST">
+            @csrf
+            @method('PUT')
+
+            <label>Image</label>
+            <input name='image' type="file" class="form-control" />
+            @error('image')
+            <span class="text-danger fs-6">{{ $message }}</span>
+            @enderror
+            <div>
+                <button type="submit" class="btn btn-dark"> Save Image</button>
+            </div>
+        </form>
         <div class="px-2 mt-4">
             <h5 class="fs-5"> Bio : </h5>
             <form action="{{ route('users.update', auth()->user()) }}" method="POST" class="row">

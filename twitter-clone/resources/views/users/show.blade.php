@@ -40,9 +40,17 @@
             </div>
             @auth
             @if (auth()->user()->id !== $user->id)
-            <div class="mt-3">
-                <button class="btn btn-primary btn-sm"> Follow </button>
-            </div>
+            @if (Auth::user()->follows($user))
+            <form action="{{route('users.unfollow',$user->id)}}" method="POST" class="mt-3">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm"> Unfollow </button>
+            </form>
+            @else
+            <form action="{{route('users.follow',$user->id)}}" method="POST" class="mt-3">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm"> Follow </button>
+            </form>
+            @endif
             @endif
             @endauth
         </div>

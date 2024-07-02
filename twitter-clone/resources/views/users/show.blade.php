@@ -30,14 +30,7 @@
                 {{ $user->bio }}
             </p>
 
-            <div class="d-flex justify-content-start">
-                <a href="#" class="fw-light nav-link fs-6 me-3"> <span class="fas fa-user me-1">
-                    </span> {{count($user->followers)}} </a>
-                <a href="#" class="fw-light nav-link fs-6 me-3"> <span class="fas fa-brain me-1">
-                    </span> {{ count($user->ideas) }} </a>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-comment me-1">
-                    </span> {{ count($user->comments) }} </a>
-            </div>
+            @include('users.shared.user-stats')
             @auth
             @if (auth()->user()->id !== $user->id)
             @if (Auth::user()->follows($user))
@@ -59,7 +52,7 @@
 
 @foreach ($user->ideas as $idea)
 <div class="mt-3">
-    @include('shared.idea-card')
+    @include('ideas.shared.idea-card')
 </div>
 @endforeach
 @endsection

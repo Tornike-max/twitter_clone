@@ -33,10 +33,7 @@
             {{ $idea->content }}
         </p>
         <div class="d-flex justify-content-between">
-            <div>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{ $idea->likes }} </a>
-            </div>
+            @include('ideas.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
                     {{ $idea->created_at->format('Y:m:d') }} </span>
@@ -44,7 +41,7 @@
         </div>
         <div>
             @include('shared.post-comment')
-            @foreach ($idea->comment as $comment)
+            @forelse($idea->comment as $comment)
             <div class="d-flex align-items-start">
                 <img style="width:35px" class="me-2 avatar-sm rounded-circle"
                     src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}"
@@ -62,7 +59,11 @@
                     <hr>
                 </div>
             </div>
-            @endforeach
+            <hr />
+            @empty
+            <p class="text-center mt-4">No Comments Found!</p>
+            @endforelse
+
         </div>
     </div>
 </div>

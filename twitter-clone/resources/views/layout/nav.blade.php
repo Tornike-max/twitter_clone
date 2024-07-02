@@ -10,20 +10,22 @@
             <ul class="navbar-nav">
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile') }}">{{ auth()->user()->name }}</a>
+                    <a class="nav-link {{ Route::is('profile') ? 'active' : '' }}" href="{{ route('profile') }}">{{
+                        auth()->user()->name }}</a>
                 </li>
                 <form method="POST" action="{{route('logout')}}" class="nav-item">
                     @csrf
-                    <button class="nav-link active" aria-current="page">Logout</button>
+                    <button class="px-2 py-1 bg-danger border-danger rounded" aria-current="page">Logout</button>
                 </form>
                 @endauth
 
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                    <a class="nav-link {{ Route::is('login') ? 'active' : '' }}" aria-current="page"
+                        href="/login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link {{ Route::is('register') ? 'active' : '' }}" href="/register">Register</a>
                 </li>
                 @endguest
 

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+Route::get('/terms', function () {
+    return view('terms');
+})->name('terms');
+
+
 // Ideas
 
 Route::resource('ideas', IdeaController::class)->except(['index', 'create'])->middleware('auth');

@@ -13,6 +13,8 @@ class Idea extends Model
         'likes',
     ];
 
+    protected $with = ['user:id,name,image', 'comment'];
+
     use HasFactory;
 
     public function comment()

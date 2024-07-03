@@ -9,6 +9,15 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 @auth
+                @if (Auth::user()->is_admin)
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('/admin') ? 'active' : '' }}"
+                        href="{{ route('admin.dashboard') }}">Admin
+                        Page
+                    </a>
+                </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('profile') ? 'active' : '' }}" href="{{ route('profile') }}">{{
                         auth()->user()->name }}</a>

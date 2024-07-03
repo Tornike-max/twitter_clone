@@ -40,15 +40,17 @@
             </div>
         </div>
         <div>
-            @include('shared.post-comment')
+            @include('ideas.shared.post-comment')
             @forelse($idea->comment as $comment)
+
             <div class="d-flex align-items-start">
                 <img style="width:35px" class="me-2 avatar-sm rounded-circle"
-                    src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $idea->user->name }}"
-                    alt="{{ $idea->user->name }}">
+                    src="{{ $comment->user->id === auth()->user()->id ? $comment->user->getImageUrl() : "
+                    https://api.dicebear.com/6.x/fun-emoji/svg?seed={$comment->user->name}" }}"
+                alt="{{$idea->user->name }}">
                 <div class="w-100">
                     <div class="d-flex justify-content-between">
-                        <h6 class="">{{ $idea->user->name }}
+                        <h6 class="">{{ $comment->user->name}}
                         </h6>
                         <small class="fs-6 fw-light text-muted"> {{
                             \Carbon\Carbon::parse($comment->created_at)->diffForHumans()}} </small>

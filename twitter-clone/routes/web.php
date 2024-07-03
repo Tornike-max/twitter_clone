@@ -1,12 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\IdeaLikeController;
+use App\Http\Controllers\PopularpostController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard
@@ -33,11 +37,21 @@ Route::post('/users/{idea}/like', [IdeaLikeController::class, 'like'])->middlewa
 Route::post('/users/{idea}/unlike', [IdeaLikeController::class, 'unlike'])->middleware('auth')->name('ideas.unlike');
 
 
+//feed
+Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');
+
+//popular post
+Route::get('/popular', PopularpostController::class)->middleware('auth')->name('popular');
 
 // Auth
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store');
-
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('login.user');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+//admin
+
+Route::get('/admin', [AdminDashboardController::class, 'index'])
+    ->name('admin.dashboard')
+    ->middleware('auth', 'admin');

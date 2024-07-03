@@ -54,4 +54,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin', [AdminDashboardController::class, 'index'])
     ->name('admin.dashboard')
-    ->middleware('auth', 'admin');
+    ->middleware('auth', 'can:admin');

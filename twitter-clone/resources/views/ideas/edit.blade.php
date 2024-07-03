@@ -13,7 +13,7 @@
                         </a></h5>
                 </div>
             </div>
-            <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
+            <form method="POST" action="{{route('ideas.destroy',$idea)}}">
                 @csrf
                 @method('delete')
                 <a class="mx-2" href="{{route('ideas.show',$idea)}}">Go Back</a>

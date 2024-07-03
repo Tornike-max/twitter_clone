@@ -14,7 +14,7 @@
                 </div>
             </div>
             @auth
-            <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
+            <form method="POST" action="{{route('ideas.destroy',$idea)}}">
                 @csrf
                 @method('delete')
                 <a href="{{route('ideas.edit',$idea)}}" class='mx-2 btn btn-success btn-m'>Edit</a>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            @include('shared.post-comment')
+            @include('ideas.shared.post-comment')
         </div>
     </div>
 </div>

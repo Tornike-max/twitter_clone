@@ -11,7 +11,7 @@
                 </div>
             </div>
             @auth
-            @if (auth()->user()->id === $idea->user->id)
+            @if (auth()->user()->id === $idea->user->id || auth()->user()->is_admin)
             <form method="POST" action="{{route('ideas.destroy',$idea->id)}}">
                 @csrf
                 @method('delete')
@@ -45,7 +45,7 @@
 
             <div class="d-flex align-items-start">
                 <img style="width:35px" class="me-2 avatar-sm rounded-circle"
-                    src="{{ $comment->user->id === auth()->user()->id ? $comment->user->getImageUrl() : "
+                    src="{{ ($comment->user->id) === auth()?->user()?->id ? $comment->user->getImageUrl() : "
                     https://api.dicebear.com/6.x/fun-emoji/svg?seed={$comment->user->name}" }}"
                 alt="{{$idea->user->name }}">
                 <div class="w-100">

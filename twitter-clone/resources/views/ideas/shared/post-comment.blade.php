@@ -1,5 +1,5 @@
 @auth
-<form action="{{route('ideas.comments.store',$idea->id)}}" method="POST">
+<form class="mt-2" action="{{route('ideas.comments.store',$idea->id)}}" method="POST">
     @csrf
     <div class="mb-3">
         <textarea name="content" class="fs-6 form-control" rows="1"></textarea>

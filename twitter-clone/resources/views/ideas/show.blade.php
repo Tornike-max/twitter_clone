@@ -13,17 +13,23 @@
                         </a></h5>
                 </div>
             </div>
+
             @auth
+            @if (auth()->user()->is_admin || auth()->user()->id === $user->id)
             <form method="POST" action="{{route('ideas.destroy',$idea)}}">
                 @csrf
                 @method('delete')
                 <a href="{{route('ideas.edit',$idea)}}" class='mx-2 btn btn-success btn-m'>Edit</a>
                 <button type="submit" class="btn btn-danger btn-m">X</button>
             </form>
+            @endif
+
             @endauth
+
             @guest
             <a href="{{route('login')}}" class="mx-2 btn btn-success btn-m">Login to make actions</a>
             @endguest
+
         </div>
     </div>
     <div class="card-body">
@@ -33,7 +39,7 @@
         <div class="d-flex justify-content-between">
             <div>
                 <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{ $idea->likes }} </a>
+                    </span> {{ count($idea->likes) }} </a>
             </div>
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>

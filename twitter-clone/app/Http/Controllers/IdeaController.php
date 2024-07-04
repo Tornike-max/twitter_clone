@@ -35,12 +35,15 @@ class IdeaController extends Controller
         return redirect()->route('dashboard')->with('success', 'Idea created successfully');
     }
 
-    public function destroy(Idea $idea)
+    public function destroy(Request $request, Idea $idea)
     {
 
-        if (!Gate::allows('ideas.destroy', $idea)) {
-            abort(403);
-        };
+        // if (!Gate::allows('ideas.destroy', $idea)) {
+        //     abort(403);
+        // };
+
+        //policie
+        Gate::authorize('delete', $idea);
 
         $ideas = Idea::query()->where('id', $idea->id)->firstOrFail();
 
@@ -52,11 +55,14 @@ class IdeaController extends Controller
         return redirect()->route('dashboard')->with('error', 'Deletion failed');
     }
 
-    public function edit(Idea $idea)
+    public function edit(Request $request, Idea $idea)
     {
-        if (!Gate::allows('ideas.edit', $idea)) {
-            abort(403);
-        }
+        // if (!Gate::allows('ideas.edit', $idea)) {
+        //     abort(403);
+        // }
+
+        //policie
+        Gate::authorize('update', $idea);
 
         return view('ideas.edit', [
             'idea' => $idea,
@@ -65,19 +71,19 @@ class IdeaController extends Controller
 
     public function update(Idea $idea, Request $request)
     {
-        if (!Gate::allows('ideas.edit', $idea)) {
-            abort(403);
-        }
+        // if (!Gate::allows('ideas.edit', $idea)) {
+        //     abort(403);
+        // }
 
-        if (auth()->id() === $idea->user->id) {
-            $data = $request->validate([
-                'content' => ['required', 'max:255', 'min:2'],
-            ]);
+        //policie
+        Gate::authorize('update', $idea);
 
-            $idea->update($data);
+        $data = $request->validate([
+            'content' => ['required', 'max:255', 'min:2'],
+        ]);
 
-            return redirect()->route('dashboard')->with('success', 'Idea updated successfully');
-        }
-        return abort(404);
+        $idea->update($data);
+
+        return redirect()->route('dashboard')->with('success', 'Idea updated successfully');
     }
 }

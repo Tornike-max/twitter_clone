@@ -12,7 +12,7 @@ class Idea extends Model
         'content',
     ];
 
-    protected $with = ['user:id,name,image', 'comment'];
+    protected $with = ['user:id,name,image,is_admin', 'comment'];
 
     use HasFactory;
 

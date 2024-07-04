@@ -29,12 +29,11 @@
             @csrf
             @method('PUT')
 
-            <label>Image</label>
             <input name='image' type="file" class="form-control" />
             @error('image')
             <span class="text-danger fs-6">{{ $message }}</span>
             @enderror
-            <div>
+            <div class="mt-4">
                 <button type="submit" class="btn btn-dark"> Save Image</button>
             </div>
         </form>
@@ -50,7 +49,7 @@
                     <span class="d-block text-danger fs-6 mt-2"> {{ $message }} </span>
                     @enderror
                 </div>
-                <div>
+                <div class="mb-4">
                     <button type="submit" class="btn btn-dark"> Save </button>
                 </div>
             </form>

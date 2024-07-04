@@ -27,13 +27,13 @@ class AppServiceProvider extends ServiceProvider
             return (bool) $user->is_admin;
         });
 
-        Gate::define('ideas.destroy', function (User $user, Idea $idea): bool {
-            return (bool) $user->is_admin || $user->id === $idea->user_id;
-        });
+        // Gate::define('ideas.destroy', function (User $user, Idea $idea): bool {
+        //     return (bool) $user->is_admin || $user->id === $idea->user_id;
+        // });
 
-        Gate::define('ideas.edit', function (User $user, Idea $idea): bool {
-            return (bool) $user->is_admin || $user->id === $idea->user_id;
-        });
+        // Gate::define('ideas.edit', function (User $user, Idea $idea): bool {
+        //     return (bool) $user->is_admin || $user->id === $idea->user_id;
+        // });
 
         Paginator::useBootstrapFive();
     }

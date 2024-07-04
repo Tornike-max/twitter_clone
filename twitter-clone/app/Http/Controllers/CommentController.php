@@ -8,9 +8,7 @@ class CommentController extends Controller
 {
     public function store($id)
     {
-        $data = request()->validate([
-            'content' => ['required', 'max:150'],
-        ]);
+        $data = request()->validated();
 
         $data['idea_id'] = $id;
 

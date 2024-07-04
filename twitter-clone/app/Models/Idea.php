@@ -14,6 +14,8 @@ class Idea extends Model
 
     protected $with = ['user:id,name,image,is_admin', 'comment'];
 
+    protected $withCount = ['likes'];
+
     use HasFactory;
 
     public function comment()

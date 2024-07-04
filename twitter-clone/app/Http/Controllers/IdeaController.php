@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateIdeaRequest;
+use App\Http\Requests\UpdateIdeaRequest;
 use App\Models\Idea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -10,6 +12,7 @@ class IdeaController extends Controller
 {
     public function show(Idea $idea)
     {
+
         $comments = $idea->comment;
         $user = $idea->user;
         $showComments = true;
@@ -22,12 +25,9 @@ class IdeaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateIdeaRequest $request)
     {
-
-        $data = $request->validate([
-            'content' => ['required', 'max:255', 'min:2'],
-        ]);
+        $data = $request->validated();
 
         $data['user_id'] = auth()->id();
 
@@ -69,7 +69,7 @@ class IdeaController extends Controller
         ]);
     }
 
-    public function update(Idea $idea, Request $request)
+    public function update(UpdateIdeaRequest $idea, Request $request)
     {
         // if (!Gate::allows('ideas.edit', $idea)) {
         //     abort(403);
@@ -78,9 +78,9 @@ class IdeaController extends Controller
         //policie
         Gate::authorize('update', $idea);
 
-        $data = $request->validate([
-            'content' => ['required', 'max:255', 'min:2'],
-        ]);
+
+        $data = $request->validated();
+
 
         $idea->update($data);
 

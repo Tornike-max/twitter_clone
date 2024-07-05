@@ -30,6 +30,17 @@
 
     </div>
     <div class="card-footer text-center py-2">
-        <a class="btn btn-link btn-sm" href="#">View Profile </a>
+        <a class="btn btn-link btn-sm" href="{{route('lang','en')}}">
+            <span class="flag-icon flag-icon-gb"></span>
+            <span>GB</span>
+        </a>
+        <a class="btn btn-link btn-sm" href="{{route('lang','es')}}">
+            <span class="flag-icon flag-icon-es"></span>
+            <span>ES</span>
+        </a>
+        <a class="btn btn-link btn-sm" href="{{route('lang','ka')}}">
+            <span class="flag-icon flag-icon-ge"></span>
+            <span>GE</span>
+        </a>
     </div>
 </div>

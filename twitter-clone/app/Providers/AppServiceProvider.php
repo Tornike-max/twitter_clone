@@ -35,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         //     return (bool) $user->is_admin || $user->id === $idea->user_id;
         // });
 
+        //ასე შეგვიძლი შევცვალოთ ენა, რომელიც არის config/app.php-ში.
+        // app()->setLocale('ka');
         Paginator::useBootstrapFive();
     }
 }

@@ -13,6 +13,15 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
 
+//languages
+Route::get('/lang/{lang}', function ($lang) {
+    app()->setLocale($lang);
+    session()->put('locale', $lang);
+    return redirect()->route('dashboard');
+})->name('lang');
+
+
+
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 

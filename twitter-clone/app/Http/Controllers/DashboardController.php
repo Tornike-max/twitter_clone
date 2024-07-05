@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Idea;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -16,6 +17,7 @@ class DashboardController extends Controller
         if (request()->has('searchValue')) {
             $ideas->where('content', 'like', '%' . request()->get('searchValue', '') . '%');
         }
+
 
 
         $comments = [];

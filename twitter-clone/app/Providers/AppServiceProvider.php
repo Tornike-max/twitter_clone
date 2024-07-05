@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +38,19 @@ class AppServiceProvider extends ServiceProvider
 
         //ასე შეგვიძლი შევცვალოთ ენა, რომელიც არის config/app.php-ში.
         // app()->setLocale('ka');
+
+
+        //გლობალური ბლეიდის ცვლადი
+        View::share(
+            'topUsers',
+            User::withCount('ideas')
+                ->orderBy('ideas_count', 'desc')
+                ->limit(5)
+                ->get()
+        );
+
+
+        //პაგინაცია ბუტსტრაპით
         Paginator::useBootstrapFive();
     }
 }

@@ -15,6 +15,6 @@ class UserPolicy
     public function update(User $user, User $model): bool
     {
         //is => Determine if two models have the same ID and belong to the same table
-        return $user->id === $model->id;
+        return $user->id === $model->id || $user->is_admin;
     }
 }

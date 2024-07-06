@@ -18,9 +18,10 @@ class FeedController extends Controller
         $ideas = Idea::whereIn('user_id', $followingIds)->latest();
 
         $showComments = [];
-        if (request()->has('searchValue')) {
-            $ideas->where('content', 'like', '%' . request()->get('searchValue', '') . '%');
-        }
+        $ideas = Idea::when(request()->has('searchValue'), function ($query) {
+            $searchValue = request()->get('searchValue', '');
+            $query->search($searchValue);
+        })->orderBy('created_at', 'desc');
 
 
         $comments = [];

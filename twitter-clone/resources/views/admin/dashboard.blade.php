@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="row">
-    <h1>Admin Panel</h1>
+    <div class="col-3">
+        @include('admin.shared.left-nav')
+    </div>
+    <div class="col-9">
+        <h1>Admin Panel</h1>
+    </div>
+
 </div>
 @endsection

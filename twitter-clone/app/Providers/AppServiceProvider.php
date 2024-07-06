@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Idea;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -40,13 +41,18 @@ class AppServiceProvider extends ServiceProvider
         // app()->setLocale('ka');
 
 
+        //ქეშირება
+        $topUsers = Cache::remember('topUsers', now()->addDays(1), function () {
+            return  User::withCount('ideas')
+                ->orderBy('ideas_count', 'desc')
+                ->limit(5)
+                ->get();
+        });
+
         //გლობალური ბლეიდის ცვლადი
         View::share(
             'topUsers',
-            User::withCount('ideas')
-                ->orderBy('ideas_count', 'desc')
-                ->limit(5)
-                ->get()
+            $topUsers
         );
 
 

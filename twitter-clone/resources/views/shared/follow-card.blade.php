@@ -1,6 +1,6 @@
 <div class="card mt-3">
     <div class="card-header pb-0 border-0">
-        <h5 class="">{{ trans('ideas.who_to_follow') }}</h5>
+        <h5 class="">{{ trans('ideas.top_users') }}</h5>
     </div>
     @foreach ($topUsers as $user)
     <div class="card-body">

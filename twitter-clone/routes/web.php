@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
@@ -64,6 +65,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 //admin
 
-Route::get('/admin', [AdminDashboardController::class, 'index'])
-    ->name('admin.dashboard')
-    ->middleware('auth', 'can:admin');
+Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+    Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+});

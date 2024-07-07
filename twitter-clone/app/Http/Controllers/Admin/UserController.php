@@ -19,6 +19,14 @@ class UserController extends Controller
         ]);
     }
 
+    public function show(User $user)
+    {
+        $users = User::latest()->paginate(5);
+        return view('admin.users.show', [
+            'user' => $user
+        ]);
+    }
+
     public function edit(User $user)
     {
         Gate::authorize('update', $user);

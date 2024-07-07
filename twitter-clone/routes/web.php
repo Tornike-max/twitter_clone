@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\IdeaController as AdminIdeaController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
@@ -66,8 +68,22 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 //admin
 
 Route::middleware(['auth', 'can:admin'])->prefix('/admin')->as('admin.')->group(function () {
+    //dashboard
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    //users
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');
+
+    //ideas
+    Route::get('/ideas', [AdminIdeaController::class, 'index'])->name('ideas.index');
+    Route::get('/ideas/{idea}/edit', [AdminIdeaController::class, 'edit'])->name('ideas.edit');
+    Route::put('/ideas/{idea}', [AdminIdeaController::class, 'update'])->name('ideas.update');
+    Route::get('/ideas/{idea}', [AdminIdeaController::class, 'show'])->name('ideas.show');
+    Route::delete('/ideas/{idea}', [AdminIdeaController::class, 'destroy'])->name('ideas.destroy');
+
+    //comments
+    Route::resource('/comments', AdminCommentController::class)->only(['index', 'edit', 'update', 'destroy']);
 });
